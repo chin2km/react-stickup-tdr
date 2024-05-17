@@ -27,7 +27,7 @@ interface IOwnProps extends IStickyComponentProps {
   defaultOffsetTop?: number;
 }
 
-interface IProps extends IOwnProps, IStickyInjectedProps {}
+interface IProps extends IOwnProps, IStickyInjectedProps { }
 
 interface IState {
   styles: IPositionStyles;
@@ -122,7 +122,7 @@ class StickyScrollUp extends React.PureComponent<IProps, IState> {
       prevProps.disabled !== this.props.disabled
     ) {
       this.props.updateStickyOffset(
-        this.props.disabled ? 0 : this.stickyOffset,
+        this.props.disabled ? 0 : this.stickyOffset!,
         this.stickyOffsetHeight,
       );
     }
@@ -134,7 +134,7 @@ class StickyScrollUp extends React.PureComponent<IProps, IState> {
   };
 
   getStickyStyles(stickyRect: IRect, placeholderRect: IRect, scroll: IScroll) {
-    const offsetTop = isNaN(this.props.defaultOffsetTop)
+    const offsetTop = isNaN(this.props.defaultOffsetTop!)
       ? Math.round(placeholderRect.top) + Math.round(scroll.y)
       : this.props.defaultOffsetTop;
     const styles = calcPositionStyles(stickyRect, scroll, {
@@ -144,9 +144,9 @@ class StickyScrollUp extends React.PureComponent<IProps, IState> {
     if (!this.props.disableHardwareAcceleration) {
       const shouldAccelerate = this.isNearToViewport(stickyRect);
       if (supportsWillChange) {
-        styles.willChange = shouldAccelerate ? 'position, top' : null;
+        styles.willChange = shouldAccelerate ? 'position, top' : undefined;
       } else {
-        styles.transform = shouldAccelerate ? `translateZ(0)` : null;
+        styles.transform = shouldAccelerate ? `translateZ(0)` : undefined;
       }
     }
 
@@ -239,9 +239,9 @@ class StickyScrollUp extends React.PureComponent<IProps, IState> {
         <StickyPlaceholder
           className={className}
           style={style}
-          disabled={disabled}
+          disabled={!!disabled}
           stickyRef={this.stickyRef}
-          disableResizing={disableResizing}
+          disableResizing={!!disableResizing}
           forwardRef={this.placeholderRef}
         >
           {this.renderSticky}
@@ -249,7 +249,7 @@ class StickyScrollUp extends React.PureComponent<IProps, IState> {
         <ObserveViewport
           disableScrollUpdates={disabled}
           disableDimensionsUpdates
-          onUpdate={this.handleViewportUpdate}
+          onUpdate={this.handleViewportUpdate as any}
           recalculateLayoutBeforeUpdate={this.recalculateLayoutBeforeUpdate}
           priority={this.state.isNearToViewport ? 'highest' : 'low'}
         />

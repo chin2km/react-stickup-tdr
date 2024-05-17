@@ -11,9 +11,9 @@ const StickyGroupContext = React.createContext({
 export const connect = () => <P extends object>(
   WrappedComponent: React.ComponentType<P & IStickyInjectedProps>,
 ) => {
-  const ConnectedComponent: React.SFC<P> = props => (
+  const ConnectedComponent: React.SFC<P> = (props) => (
     <StickyGroupContext.Consumer>
-      {context => (
+      {(context) => (
         <WrappedComponent
           {...props}
           stickyOffset={context.stickyOffset}

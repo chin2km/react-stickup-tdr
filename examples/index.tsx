@@ -180,7 +180,11 @@ class Example extends React.PureComponent<
         </div>
 
         <div ref={this.container7} style={{ height: 1500 }}>
-          <Sticky container={this.container7} overflowScroll="flow" experimentalNative>
+          <Sticky
+            container={this.container7}
+            overflowScroll="flow"
+            experimentalNative
+          >
             <div>
               <DynamicContent />
             </div>

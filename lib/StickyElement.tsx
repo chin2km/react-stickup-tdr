@@ -21,7 +21,7 @@ const prefixTransform = (transform: string): React.CSSProperties => ({
   OTransform: transform,
 });
 
-const StickyElement = <R extends {}>({
+const StickyElement = <R extends unknown>({
   children,
   forwardRef,
   style: overrideStyles = {},
@@ -41,7 +41,7 @@ const StickyElement = <R extends {}>({
   return (
     <div ref={forwardRef} style={style} {...props}>
       {typeof children === 'function'
-        ? (children as (options: R) => React.ReactNode)(renderArgs)
+        ? (children as (options: R) => React.ReactNode)(renderArgs as any)
         : children}
     </div>
   );

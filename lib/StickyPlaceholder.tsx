@@ -43,7 +43,7 @@ class StickyPlaceholder extends React.Component<IProps, IState> {
   };
 
   componentWillUnmount() {
-    cancelAnimationFrame(this.recalculationTick);
+    cancelAnimationFrame(this.recalculationTick!);
     this.isUnmounted = true;
   }
 
@@ -132,10 +132,10 @@ class StickyPlaceholder extends React.Component<IProps, IState> {
     const baseStyle = { position: 'relative', ...style } as const;
     const containerStyle: React.CSSProperties = isActive
       ? ({
-          height: stickyHeight,
-          width: stickyWidth,
-          ...baseStyle,
-        } as const)
+        height: stickyHeight,
+        width: stickyWidth,
+        ...baseStyle,
+      } as any)
       : baseStyle;
     return (
       <>
@@ -149,7 +149,7 @@ class StickyPlaceholder extends React.Component<IProps, IState> {
             <ObserveViewport
               disableScrollUpdates
               disableDimensionsUpdates={isRecalculating}
-              onUpdate={this.handleDimensionsUpdate}
+              onUpdate={this.handleDimensionsUpdate as any}
               recalculateLayoutBeforeUpdate={this.calculateSize}
               priority="highest"
             />

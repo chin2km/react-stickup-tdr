@@ -6,9 +6,7 @@ interface IElementResizeObserverProps {
   onUpdate: (rect: IRect) => void;
 }
 
-class ElementResizeObserver extends React.PureComponent<
-  IElementResizeObserverProps
-> {
+class ElementResizeObserver extends React.PureComponent<IElementResizeObserverProps> {
   private resizeObserver: ResizeObserver | null;
   constructor(props: IElementResizeObserverProps) {
     super(props);
@@ -34,7 +32,7 @@ class ElementResizeObserver extends React.PureComponent<
       return;
     }
     if (typeof window.ResizeObserver !== 'undefined') {
-      this.resizeObserver = new window.ResizeObserver(entries => {
+      this.resizeObserver = new window.ResizeObserver((entries) => {
         if (entries && entries[0] && entries[0].contentRect) {
           this.props.onUpdate(entries[0].contentRect);
         }
