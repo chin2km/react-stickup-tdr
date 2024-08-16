@@ -1,6 +1,6 @@
 {
   "name": "react-stickup-ay",
-  "version": "1.12.2",
+  "version": "1.12.3",
   "description": "React components to stick elements at the top of the page while scrolling",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -56,6 +56,6 @@
     "react-viewport-utils": "^1.12.1"
   },
   "peerDependencies": {
-    "react": ">=16.3.0 <18.0.0"
+    "react": ">=16.3.0 <=18.3.1"
   }
 }
