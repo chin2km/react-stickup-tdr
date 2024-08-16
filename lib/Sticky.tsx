@@ -123,12 +123,12 @@ class Sticky extends React.PureComponent<IProps, IState> {
       : 'end';
   };
 
-  isSticky = ({ rect, containerRect, dimensions }: { rect?: IRect, containerRect: IRect, dimensions: IDimensions }) => {
+  isSticky = ({ rect, containerRect, dimensions }: { rect?: IRect, containerRect?: IRect, dimensions: IDimensions }) => {
     if (!this.hasContainer()) {
-      return Math.round(containerRect.top) <= this.offsetTop;
+      return Math.round(containerRect?.top || 0) <= this.offsetTop;
     }
 
-    if (Math.round(containerRect.top) > this.offsetTop) {
+    if (Math.round(containerRect?.top || 0) > this.offsetTop) {
       return false;
     }
 
@@ -136,7 +136,7 @@ class Sticky extends React.PureComponent<IProps, IState> {
       this.props.overflowScroll === 'flow'
         ? Math.min(rect?.height || 0, dimensions.height)
         : rect?.height || 0;
-    if (Math.round(containerRect.bottom) - this.offsetTop < height) {
+    if (Math.round(containerRect?.bottom || 0) - this.offsetTop < height) {
       return false;
     }
 
